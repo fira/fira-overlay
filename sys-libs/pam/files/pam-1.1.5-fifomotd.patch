@@ -1,0 +1,49 @@
+--- modules/pam_motd/pam_motd.c	2011-06-21 11:04:56.000000000 +0200
++++ modules/pam_motd/pam_motd.c-patched	2012-06-03 15:17:13.000000000 +0200
+@@ -82,16 +82,39 @@
+ 
+     while ((fd = open(motd_path, O_RDONLY, 0)) >= 0) {
+ 	struct stat st;
++	if(fstat(fd, &st) == -1) break;
+ 
+-	/* fill in message buffer with contents of motd */
+-	if ((fstat(fd, &st) < 0) || !st.st_size || st.st_size > 0x10000)
+-	    break;
++	/* Fira Hack patch to make him read FIFOs aswell 
++	 * This is not safe and could use a bunch of additional checks */
++	if (S_ISFIFO(st.st_mode)) {
++		
++		int fifo_imotd = 0;
++		int fifo_motdcap = 100;
++		int fifo_readres = 0;
+ 
+-	if (!(mtmp = malloc(st.st_size+1)))
+-	    break;
++		mtmp = malloc(fifo_motdcap);
+ 
+-	if (pam_modutil_read(fd, mtmp, st.st_size) != st.st_size)
+-	    break;
++		/* While there is data left in the pipe, read
++		 * by increments of 100 characters - realloc'ing when neccessary */
++		do {
++			mtmp = realloc(mtmp, (fifo_motdcap += 100));
++			fifo_readres = read(fd, &mtmp[fifo_imotd], 100);
++			fifo_imotd += fifo_readres;
++		} while (fifo_readres);
++
++		st.st_size = fifo_imotd;
++
++	} else {
++		/* fill in message buffer with contents of motd */
++		if (!st.st_size || st.st_size > 0x10000)
++		    break;
++
++		if (!(mtmp = malloc(st.st_size+1)))
++		    break;
++
++		if (pam_modutil_read(fd, mtmp, st.st_size) != st.st_size)
++		    break;
++	}
+ 
+ 	if (mtmp[st.st_size-1] == '\n')
+ 	    mtmp[st.st_size-1] = '\0';
