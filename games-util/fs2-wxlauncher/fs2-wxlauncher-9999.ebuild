@@ -19,7 +19,12 @@ HOMEPAGE="http://code.google.com/p/wxlauncher/"
 LICENSE="GPL-2"
 
 SLOT=0
-IUSE="+openal"
+IUSE="+openal debug"
+
+# Setting build type to Debug will enable backtracing
+if use debug; then 
+	CMAKE_BUILD_TYPE=Debug 
+fi
 
 # wxLauncher isn't compatible with wxWidgets 2.9
 RDEPEND=">=x11-libs/wxGTK-2.8.10:2.8[X,sdl]

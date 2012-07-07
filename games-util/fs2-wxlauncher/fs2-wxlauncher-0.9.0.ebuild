@@ -20,7 +20,12 @@ HOMEPAGE="http://code.google.com/p/wxlauncher/"
 LICENSE="GPL-2"
 
 SLOT=0
-IUSE="+openal"
+IUSE="+openal debug"
+
+# Setting build type to Debug will enable backtracing
+if use debug; then
+	CMAKE_BUILD_TYPE=Debug 
+fi
 
 # Because package name is fs2-wxlauncher, we have to set the source directory manually
 S=${WORKDIR}/wxlauncher-${PV}
@@ -39,7 +44,7 @@ DEPEND="${RDEPEND}
 src_configure() {
 	local mycmakeargs=(
 		-DCMAKE_INSTALL_PREFIX=/usr/local
-		$(cmake-utils_use_use openal OPENAL)
+		$(cmake-utils_use_use openal OPENAL)	
 	)
 	cmake-utils_src_configure
 }
@@ -52,3 +57,4 @@ src_compile() {
 src_install() {
 	cmake-utils_src_install
 }
+
