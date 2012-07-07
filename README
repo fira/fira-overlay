@@ -1,0 +1,14 @@
+Fira's custom overlay
+This contains random stuff for testing purposes
+
+Github homepage: https://github.com/fira/fira-overlay
+Git repo: https://github.com/fira/fira-overlay.git
+
+How to install in Layman on Gentoo: 
+ - Add this line to your "overlays:" statement in /etc/layman/layman.cfg (yes, you need https)
+ https://raw.github.com/fira/fira-overlay/master/layman.xml
+ - Install the overlay in layman with "layman -a fira"
+ - If you're using eix, you should regenerate your database with eix-update
+ - You can then run `eix --in-overlay fira` to check for the added ebuilds
+
+
