@@ -15,12 +15,15 @@ inherit cmake-utils
 KEYWORDS="~amd64 ~ppc ~ppc64 ~x86"
 
 DESCRIPTION="Cross-Platform Launcher for the FreeSpace 2 Open engine"
-SRC_URI="http://wxlauncher.googlecode.com/files/${P}-source.tbz2"
+SRC_URI="http://wxlauncher.googlecode.com/files/wxlauncher-${V}-source.tbz2"
 HOMEPAGE="http://code.google.com/p/wxlauncher/"
 LICENSE="GPL-2"
 
 SLOT=0
 IUSE="+openal"
+
+# Because package name is fs2-wxlauncher, we have to set the source directory manually
+S=${WORKDIR}/wxlauncher-${V}
 
 # wxLauncher isn't compatible with wxWidgets 2.9
 RDEPEND=">=x11-libs/wxGTK-2.8.10:2.8[X,sdl]
