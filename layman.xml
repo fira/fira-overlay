@@ -1,8 +1,15 @@
-<?xml version="1.0" ?>
-<layman>
-<overlays>
-	<overlay contact="loyauflorian@gmail.com" name="fira" src="https://github.com/fira/fira-overlay.git" type="git">
-		<description>Fira's personal overlay</description>
-	</overlay>
-</overlays>
-</layman>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE repositories>
+<repositories xmlns="" version="1.0">
+  <repo quality="experimental" status="unofficial">
+    <name><![CDATA[fira]]></name>
+    <description lang="en"><![CDATA[fira's custom overlay]]></description>
+    <homepage>https://github.com/fira/fira-layman</homepage>
+    <owner>
+      <email>loyauflorian@gmail.com</email>
+      <name><![CDATA[Florian Loyau]]></name>
+    </owner>
+    <source type="git">git://github.com/fira/fira-overlay.git</source>
+    <feed>https://github.com/fira/fira-overlay/commits/master.atom</feed>
+  </repo>
+</repositories>
