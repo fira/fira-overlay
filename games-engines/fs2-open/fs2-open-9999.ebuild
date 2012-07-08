@@ -12,8 +12,8 @@ ESVN_REPO_URI="svn://svn.icculus.org/fs2open/trunk/fs2_open/"
 
 LICENSE="fs2_open"
 SLOT="9999"
-KEYWORDS="~x86 ~amd64"
-IUSE="+inferno static-libs speech gprof debug"
+KEYWORDS=""
+IUSE="+inferno speech gprof debug"
 
 
 # Note: as far as i know, SDL in FSO is only used for events handling so we dont
@@ -24,18 +24,21 @@ RDEPEND="
 	>=media-libs/libsdl-1.2
 	media-libs/mesa
 	media-libs/alsa-lib
+	media-libs/libpng
 	virtual/opengl
 
 	dev-lang/lua
-	
-	!static-libs? (
-					media-libs/libogg
-					media-libs/libvorbis 
-					media-libs/libtheora
-					media-libs/libpng
-					media-libs/jpeg:62
-				  )
-"
+"	
+
+	# Source for those are included along the engine source,
+	# and they can be statically linked using configure options
+	#!static-libs? (
+	#				media-libs/libogg
+	#				media-libs/libvorbis 
+	#				media-libs/libtheora
+	#				media-libs/jpeg:62
+	#			  )
+
 
 DEPEND="${RDEPEND}"
 
