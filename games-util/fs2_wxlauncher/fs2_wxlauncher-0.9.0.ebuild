@@ -27,7 +27,7 @@ if use debug; then
 	CMAKE_BUILD_TYPE=Debug 
 fi
 
-# Because package name is fs2-wxlauncher, we have to set the source directory manually
+# Because package name is fs2_wxlauncher, we have to set the source directory manually
 S=${WORKDIR}/wxlauncher-${PV}
 
 # wxLauncher isn't compatible with wxWidgets 2.9
